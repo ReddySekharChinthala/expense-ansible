@@ -9,10 +9,11 @@
       name: mysql-server
       state: latest
 
-  - name: start and enable the server
+  - name: start and enable MySQL server
     ansible.builtin.service:
       name: Mysqld
       state: started
+      enabled: yes
 
   # check the setup password created or not
   - name: check the DB connection
