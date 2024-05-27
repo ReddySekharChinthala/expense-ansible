@@ -1,0 +1,20 @@
+- name: configure backend server
+  hosts: backend
+  become: yes
+  vars:
+
+  tasks:
+  - name: diable default nodejs module
+    ansible.builtin.command: dnf module disable nodejs -y
+      
+  - name: enable nodejs:20 -y
+    ansible.builtin.command: dnf module enable nodejs:20 -y
+
+  - name: install nodejs
+    ansible.builtin.dnf: # its not a heterogeneous. only works for RedHat family. .package module is a heterogenious bcz will work for all distributions.
+     name: nodejs
+     state: installed
+
+  - name: create expense user
+    ansible.builtin.user: 
+      name: expense
