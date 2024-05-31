@@ -59,10 +59,10 @@
       login_user: root
       login_password: "{{ login_password }}"
       login_host: "{{ login_host }}"
-      filter: version
       target: < /app/schema/backend.sql
       state: import
       name: all
+
   - name: daemon reload
     ansible.builtin.systemd_service:
       daemon_reload: true
