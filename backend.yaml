@@ -55,7 +55,7 @@
       executable: pip3.9 # based on ansible python version
 
   - name: import data into mysql
-    community.mysql.mysql_do:
+    community.mysql.mysql_db:
       login_user: root
       login_password: "{{ login_password }}"
       login_host: "{{ login_host }}"
