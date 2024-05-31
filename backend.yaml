@@ -14,7 +14,7 @@
 
   - name: install nodejs
     ansible.builtin.dnf: # its not a heterogeneous. only works for RedHat family. .package module is a heterogenious bcz will work for all distributions.
-     name: nodejs
+     name: "{{ item }}"
      state: installed
     loop:
     - nodejs
