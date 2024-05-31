@@ -16,6 +16,9 @@
     ansible.builtin.dnf: # its not a heterogeneous. only works for RedHat family. .package module is a heterogenious bcz will work for all distributions.
      name: nodejs
      state: installed
+    loop:
+    - nodejs
+    - mysql
 
   - name: create expense user
     ansible.builtin.user: 
