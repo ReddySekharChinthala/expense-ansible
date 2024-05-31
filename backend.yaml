@@ -2,6 +2,8 @@
   hosts: backend
   become: yes
   vars:
+    login_host: "{{ login_host }}"
+    login_password: "{{ login_password }}"
 
   tasks:
   - name: diable default nodejs module
@@ -44,3 +46,29 @@
     ansible.builtin.copy:
       src: backend.service
       dest: /etc/systemd/system/backend.service
+
+  - name: install mysql python dependences
+    ansible.builtin.pip:
+      name: 
+      - PyMySQL # to connect MySQL DB from Ansible
+      - cryptography # to get password access have to install
+      executable: pip3.9 # based on ansible python version
+
+  - name: import data into mysql
+    community.mysql.mysql_do:
+      login_user: root
+      login_password: "{{ login_password }}"
+      login_host: "{{ login_host }}"
+      filter: version
+      target: < /app/schema/backend.sql
+      state: import
+      name: all
+  - name: daemon reload
+    ansible.builtin.systemctl_service:
+      daemon_reload: true
+
+  - name: start and enable backend service
+    ansible.builtin.service:
+    name: backend
+    state: started
+    enabled: yes
