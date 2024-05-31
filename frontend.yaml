@@ -30,7 +30,7 @@
       remote_src: yes
     
     
-  - name: copy expense.conf service into frontend 
+  - name: copy backend conf
     ansible.builtin.copy:
       src: expense.conf
       dest: etc/nginx/default.d/expense.conf
