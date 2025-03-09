@@ -4,7 +4,7 @@
   vars:
     login_host: db.rsdevops78s.online
   vars_prompt:
-    name: mysql_root_password
+  - name: mysql_root_password
     prompt: please enter mysql root password
     private: no
   tasks:
@@ -12,6 +12,7 @@
     ansible.builtin.dnf:
       name: mysql
       state: latest
+
   - name: start the mysql server
     ansible.builtin.service:
       name: mysql
@@ -20,15 +21,18 @@
 
 # Check the setup password created or not
 
-- name: check DB connecton
-  community.mysql.mysql_info:
-    login_user: root
-    login_password: "{{ mysql_root_password }}"
-    login_host: "{{ login_host }}"
-    filter: version
-  ignore_errors: yes
-  register: mysql_connection_output
+  - name: check DB connecton
+    community.mysql.mysql_info:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      login_host: "{{ login_host }}"
+      filter: version
+    ignore_errors: yes
+    register: mysql_connection_output
 
-- name: print the connection output
-  ansible.builtin.debug:
-    msg: "{{ mysql_connection_output }}"
+  - name: print the connection output
+    ansible.builtin.debug:
+      msg: "{{ mysql_connection_output }}"
+
+
+  
