@@ -1,38 +1,32 @@
-- name: configure db server
-  hosts: db
-  become: yes
+- name: configure the db server
+  hosts: web
   vars:
     login_host: db.rsdevops78s.online
-  vars_prompt:
-  - name: mysql_root_password
-    prompt: please enter mysql root password
-    private: no
+  become: yes
   tasks:
-  - name: install mysql server
+  - name: Install mysql server
     ansible.builtin.dnf:
-      name: mysql-server
+      name: mysql
       state: latest
 
-  - name: start and enable mysql server
+  - name: start and enable the mysql server
     ansible.builtin.service:
-      name: mysqld
+      name: mysql
       state: started
       enabled: yes
 
-# Check the setup password created or not
+  # check the setup password is created or not
 
-  - name: check DB connecton
+
+  - name: check the DB connection
     community.mysql.mysql_info:
       login_user: root
-      login_password: "{{ mysql_root_password }}"
+      login_password: ExpenseApp@1
       login_host: "{{ login_host }}"
       filter: version
     ignore_errors: yes
     register: mysql_connection_output
 
-  - name: print the connection output
+  - name: print the output
     ansible.builtin.debug:
-      msg: "Output: {{ mysql_connection_output }}"
-
-
-  
+      msg: "{{ mysql_connection_output }}"
