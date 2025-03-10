@@ -15,7 +15,7 @@
       state: started
       enabled: yes
 
-  # check the setup password is created or not
+  # check the setup password is created or not.
 
 
   - name: check the DB connection
@@ -29,4 +29,4 @@
 
   - name: print the output
     ansible.builtin.debug:
-      msg: "{{ mysql_connection_output }}"
+      msg: "{{ mysql_connection_output }}""
