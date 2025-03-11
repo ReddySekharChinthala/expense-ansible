@@ -2,6 +2,10 @@
   hosts: localhost
   vars:
     login_host: db.rsdevops78s.online
+  vars_prompt:
+    name: mysql_root_password
+    prompt: please enter the root password
+    private: no
   become: yes
   tasks: 
   - name: install mysql server    
@@ -21,12 +25,12 @@
       - PyMySQL
       - cryptography
       executable: pip3.9
-      
+
   # check the DB connection and password setup created or not..
   - name: check DB connection
     community.mysql.mysql_info:
       login_user: root
-      login_password: ExpenseApp@1
+      login_password: "{{ mysql_root_password }}"
       login_host: "{{ login_host }}"
       filter: version
     ignore_errors: yes
@@ -35,3 +39,7 @@
   - name: print the output info
     ansible.builtin.debug:
       msg: "Output is: {{ mysql_connection_output }}"
+
+  - name: setup mysql root password
+    ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}"
+    when: mysql_connection_output.failed is true
