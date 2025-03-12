@@ -65,4 +65,10 @@
       target: /app/schema/backend.sql
       state: import
       name: all
+
+  - name: restart the service
+    ansible.builtin.service:
+      name: backend service
+      state: reloaded
+
       
