@@ -4,7 +4,7 @@
   vars:
     login_host: db.rsdevops78s.online
   vars_prompt:
-  - name: "{{ mysql_root_password}}"
+  - name: mysql_root_password
     prompt: please enter the password
     private: no
     
