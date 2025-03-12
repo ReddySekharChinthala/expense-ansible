@@ -20,7 +20,13 @@
       state: started
       enabled: yes
 
-  
+  - name: install mysql python dependences
+    ansible.builtin.pip:
+      name:
+      - PyMySQL
+      - cryptography
+    executable: pip3.9
+
 
   # check the setup password is created or not
 
