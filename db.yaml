@@ -34,7 +34,7 @@
     community.mysql.mysql_info:
       login_user: root
       login_password: "{{ mysql_root_password }}"
-      login_host: db.rsdevops78s.online
+      login_host: "{{ login_host }}"
       filter: version
     ignore_errors: yes
     register: mysql_connection_output
@@ -44,5 +44,5 @@
       msg: "output is: {{ mysql_connection_output }}"
 
   - name: set mysql_root_password
-    ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ login_password }}"
+    ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}"
     when: mysql_connection_output.failed is true
