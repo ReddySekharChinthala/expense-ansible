@@ -15,13 +15,13 @@
 
   - name: remove the default content
     ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: absent
+      path: /usr/share/nginx/html
+      state: absent
 
   - name: ctreate html directory
     ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: directory
+      path: /usr/share/nginx/html
+      state: directory
 
   - name: download and extract the frontend service
     ansible.builtin.unarchive:
