@@ -3,7 +3,7 @@
   become: yes
   vars:
     login_password: ExpenseApp@1
-    login_host: db.rsdevops78s.online
+    login_host: db.rsdevops17.online
 
   tasks:
   - name: disable the default module 
